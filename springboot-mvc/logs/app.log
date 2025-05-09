@@ -889,3 +889,8 @@ java.lang.IllegalStateException: Ambiguous handler methods mapped for '/api/book
 2025-05-09T11:28:59.142+08:00  INFO 15448 --- [springboot-mvc] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-05-09T11:28:59.142+08:00  INFO 15448 --- [springboot-mvc] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-05-09T11:28:59.142+08:00  INFO 15448 --- [springboot-mvc] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-05-09T11:51:10.519+08:00  INFO 15448 --- [springboot-mvc] [RMI TCP Connection(33)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-05-09T11:51:10.520+08:00  INFO 15448 --- [springboot-mvc] [RMI TCP Connection(33)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-09T11:51:10.522+08:00  INFO 15448 --- [springboot-mvc] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-09T11:51:10.524+08:00  INFO 15448 --- [springboot-mvc] [RMI TCP Connection(33)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-09T11:51:10.528+08:00  INFO 15448 --- [springboot-mvc] [RMI TCP Connection(33)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
