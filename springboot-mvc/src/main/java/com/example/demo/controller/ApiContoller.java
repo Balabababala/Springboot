@@ -1,31 +1,33 @@
 package com.example.demo.controller;
 
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.model.BMI;
-import com.example.demo.model.entity.*;
-import com.example.demo.response.ApiResponse;
-
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.BMI;
+import com.example.demo.model.entity.Book;
+import com.example.demo.response.ApiResponse;
 
 
 @RestController //免@ResponseBody ,用了 jsp渲染就不能用 
 @RequestMapping("/api")
 
 
-public class ApiConrtoller {
+public class ApiContoller {
+	private static final Logger logger = LoggerFactory.getLogger(ApiContoller.class);
+
 //	1.首頁
 //	路徑 /api/home
 //	路徑 /api/
@@ -33,6 +35,7 @@ public class ApiConrtoller {
 //	網址 http://localhost:8080/welcome/api/
 	@GetMapping(value={"/home","/"})
 	public String home() {
+		logger.info("這是安ㄤㄤㄤㄤ");
 		return "我是誰";
 	}
 //	2.?帶參數
@@ -114,10 +117,10 @@ public class ApiConrtoller {
 	 * 網址: http://localhost:8080/api/book?name=English&price=10.5&amount=20&pub=false
 	 * 讓參數自動轉成 key/value 的 Map 集合
 	 * */
-	@GetMapping(value = "/book",produces ="application/json;charset=utf-8")
-	public ResponseEntity<ApiResponse<Object>> getBookInfo(@RequestParam Map<String,Object> bookMap	){
-		return ResponseEntity.ok(ApiResponse.success("回應成功", bookMap));
-	}
+//	@GetMapping(value = "/book",produces ="application/json;charset=utf-8")
+//	public ResponseEntity<ApiResponse<Object>> getBookInfo(@RequestParam Map<String,Object> bookMap	){
+//		return ResponseEntity.ok(ApiResponse.success("回應成功", bookMap));
+//	}
 	/* 8. 多筆參數轉指定 model 物件
 	 * 路徑: 承上
 	 * 網址: 承上
@@ -155,21 +158,21 @@ public class ApiConrtoller {
 	 * ps: 就只是符合不同開發者的需要 !
 	 * 
 	 * */
-	@GetMapping(value = "/book/{id}",produces ="application/json;charset=utf-8")
-	public ResponseEntity<ApiResponse<Object>> getBookById(@PathVariable (name="id") Integer id){
-		List<Book> books=List.of(
-				 new Book(1,"Doraemon",12.5,20,false),
-				 new Book(2,"loufushi",10.5,30,false),
-				 new Book(3,"Howshuth",8.5,40,true),
-				 new Book(4,"niroherdernuerr",11.5,50,true)			
-				);
-		Optional<Book> optBook=books.stream().filter(book -> book.getId().equals(id)).findFirst();
-		if(optBook.isEmpty()) {
-			return ResponseEntity.badRequest().body(null);
-		}
-		Book book=optBook.get();
-		return ResponseEntity.ok(ApiResponse.success("回應成功", book));
-	}
+//	@GetMapping(value = "/book/{id}",produces ="application/json;charset=utf-8")
+//	public ResponseEntity<ApiResponse<Object>> getBookById(@PathVariable (name="id") Integer id){
+//		List<Book> books=List.of(
+//				 new Book(1,"Doraemon",12.5,20,false),
+//				 new Book(2,"loufushi",10.5,30,false),
+//				 new Book(3,"Howshuth",8.5,40,true),
+//				 new Book(4,"niroherdernuerr",11.5,50,true)			
+//				);
+//		Optional<Book> optBook=books.stream().filter(book -> book.getId().equals(id)).findFirst();
+//		if(optBook.isEmpty()) {
+//			return ResponseEntity.badRequest().body(null);
+//		}
+//		Book book=optBook.get();
+//		return ResponseEntity.ok(ApiResponse.success("回應成功", book));
+//	}
 	/**
 	 * 請利用"路徑參數"設計出可以只顯示出刊或停刊的設計風格與方法
 	 * 路徑: /book/Pub/true 得到 pub=true 的書
@@ -177,22 +180,22 @@ public class ApiConrtoller {
 	 * 網址: http://localhost:8080/api/book/Pub/true
 	 * 網址: http://localhost:8080/api/book/Pub/false
 	 * */
-	@GetMapping(value = "/book/Pub/{isPub}",produces ="application/json;charset=utf-8")
-	public ResponseEntity<ApiResponse<Object>> getBookByPub(@PathVariable (name="isPub") Boolean isPub){
-		List<Book> books=List.of(
-				 new Book(1,"Doraemon",12.5,20,false),
-				 new Book(2,"loufushi",10.5,30,false),
-				 new Book(3,"Howshuth",8.5,40,true),
-				 new Book(4,"niroherdernuerr",11.5,50,true)			
-				);
-		
-		List<Book> reBooks= books.stream()
-								 .filter(book -> book.getPub().equals(isPub))
-								 .toList();
-		if(reBooks.size()==0) {
-			return ResponseEntity.badRequest().body(null);
-		}
-		return ResponseEntity.ok(ApiResponse.success("查詢成功:"+(isPub?"出刊有":"停刊有"), reBooks));
-	}
+//	@GetMapping(value = "/book/Pub/{isPub}",produces ="application/json;charset=utf-8")
+//	public ResponseEntity<ApiResponse<Object>> getBookByPub(@PathVariable (name="isPub") Boolean isPub){
+//		List<Book> books=List.of(
+//				 new Book(1,"Doraemon",12.5,20,false),
+//				 new Book(2,"loufushi",10.5,30,false),
+//				 new Book(3,"Howshuth",8.5,40,true),
+//				 new Book(4,"niroherdernuerr",11.5,50,true)			
+//				);
+//		
+//		List<Book> reBooks= books.stream()
+//								 .filter(book -> book.getPub().equals(isPub))
+//								 .toList();
+//		if(reBooks.size()==0) {
+//			return ResponseEntity.badRequest().body(null);
+//		}
+//		return ResponseEntity.ok(ApiResponse.success("查詢成功:"+(isPub?"出刊有":"停刊有"), reBooks));
+//	}
 	
 }
