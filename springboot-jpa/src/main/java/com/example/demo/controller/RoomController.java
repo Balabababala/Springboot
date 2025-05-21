@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value= {"/room","/rooms"})
-public class roomController {
+public class RoomController {
 	@Autowired
 	private RoomService roomService;
 	
