@@ -1,0 +1,8 @@
+package com.example.demo.service;
+
+import com.example.demo.exception.InsufficientAmountExecption;
+
+//買書服務
+public interface BuyService {
+	void buyOneBook(String username,Long bookid) throws InsufficientAmountExecption;
+}
